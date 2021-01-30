@@ -23,7 +23,13 @@ export const databaseProviders = [
                 default:
                     config = databaseConfig.development;
             }
-            const sequelize = new Sequelize(config);
+            // const sequelize = new Sequelize(config);
+            const params = {
+                dialect: config.dialect,
+                storage: config.path + config.database
+            };
+            // console.log(params);    
+            const sequelize = new Sequelize(params);
             sequelize.addModels([User, Post]);
             await sequelize.sync();
             return sequelize;
